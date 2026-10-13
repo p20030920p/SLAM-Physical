@@ -1,0 +1,96 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+Visualization Manager:
+  Class: ""
+  Global Options:
+    Background Color: 35; 39; 44
+    Fixed Frame: map
+    Frame Rate: 15
+  Displays:
+    - Class: rviz_default_plugins/Grid
+      Name: Grid
+      Enabled: true
+      Cell Size: 1
+      Plane Cell Count: 100
+    - Class: rviz_default_plugins/PointCloud2
+      Name: Raw current input
+      Enabled: true
+      Topic:
+        Value: /slam_physical/raw
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+      Size (m): 0.04
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 180; 180; 180
+    - Class: rviz_default_plugins/PointCloud2
+      Name: C0 Old map
+      Enabled: true
+      Topic:
+        Value: /slam_physical/C0
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+      Style: Points
+      Size (m): 0.04
+      Color Transformer: FlatColor
+      Color: 225; 130; 95
+    - Class: rviz_default_plugins/PointCloud2
+      Name: C1 Simple protection
+      Enabled: true
+      Topic:
+        Value: /slam_physical/C1
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+      Style: Points
+      Size (m): 0.04
+      Color Transformer: FlatColor
+      Color: 230; 200; 100
+    - Class: rviz_default_plugins/PointCloud2
+      Name: C2 Geometry only
+      Enabled: true
+      Topic:
+        Value: /slam_physical/C2
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+      Style: Points
+      Size (m): 0.04
+      Color Transformer: FlatColor
+      Color: 100; 175; 245
+    - Class: rviz_default_plugins/PointCloud2
+      Name: C4 Full replay
+      Enabled: true
+      Topic:
+        Value: /slam_physical/C4
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+      Style: Points
+      Size (m): 0.04
+      Color Transformer: FlatColor
+      Color: 100; 220; 170
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Actual output labels
+      Enabled: true
+      Topic:
+        Value: /slam_physical/labels
+        Durability Policy: Transient Local
+        Reliability Policy: Reliable
+        Depth: 1
+  Views:
+    Current:
+      Class: rviz_default_plugins/Orbit
+      Distance: 75
+      Focal Point:
+        X: 36
+        Y: 6
+        Z: 0
+      Pitch: 0.9
+      Yaw: 4.7
+Window Geometry:
+  Width: 1400
+  Height: 850

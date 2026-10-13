@@ -1,0 +1,922 @@
+{
+  "scope": "Pose-revision mechanism pilot; not paper benchmark or SLAM accuracy",
+  "dataset_sha256": "1938cd4e01e337f99989ad811325a855fe65498adbf1ef9c989957272e808e34",
+  "capture": {
+    "backend": "gazebo-harmonic",
+    "frames": 16,
+    "pose_telemetry_verified": true,
+    "pose_telemetry": [
+      {
+        "observation_id": 0,
+        "sensor_time": 0.6000000000000001,
+        "observed_pose_xyzw": [
+          6.8,
+          6.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "static_points": 9117,
+        "dynamic_points": 235,
+        "unclassified_points": 17,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            9.0,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          9.0,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 1,
+        "sensor_time": 1.4,
+        "observed_pose_xyzw": [
+          6.73083636611408,
+          6.32538931446064,
+          1.0,
+          0.0,
+          0.0,
+          0.20791169081775931,
+          0.9781476007338057
+        ],
+        "static_points": 9143,
+        "dynamic_points": 211,
+        "unclassified_points": 25,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            9.0,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          9.0,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 2,
+        "sensor_time": 2.2,
+        "observed_pose_xyzw": [
+          6.535304485087087,
+          6.594515860381915,
+          1.0,
+          0.0,
+          0.0,
+          0.40673664307580015,
+          0.9135454576426009
+        ],
+        "static_points": 9219,
+        "dynamic_points": 162,
+        "unclassified_points": 45,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            9.0,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          9.0,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 3,
+        "sensor_time": 3.0,
+        "observed_pose_xyzw": [
+          6.247213595499958,
+          6.760845213036123,
+          1.0,
+          0.0,
+          0.0,
+          0.5877852522924731,
+          0.8090169943749475
+        ],
+        "static_points": 9271,
+        "dynamic_points": 141,
+        "unclassified_points": 15,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            9.0,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          9.0,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 4,
+        "sensor_time": 3.8,
+        "observed_pose_xyzw": [
+          5.916377229385877,
+          6.795617516294619,
+          1.0,
+          0.0,
+          0.0,
+          0.7431448254773941,
+          0.6691306063588582
+        ],
+        "static_points": 9347,
+        "dynamic_points": 97,
+        "unclassified_points": 19,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            9.55,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          9.55,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 5,
+        "sensor_time": 4.4,
+        "observed_pose_xyzw": [
+          5.6000000000000005,
+          6.692820323027551,
+          1.0,
+          0.0,
+          0.0,
+          0.8660254037844386,
+          0.5000000000000001
+        ],
+        "static_points": 9405,
+        "dynamic_points": 79,
+        "unclassified_points": 32,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            10.1,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          10.1,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 6,
+        "sensor_time": 5.2,
+        "observed_pose_xyzw": [
+          5.352786404500042,
+          6.4702282018339785,
+          1.0,
+          0.0,
+          0.0,
+          0.9510565162951535,
+          0.30901699437494745
+        ],
+        "static_points": 9445,
+        "dynamic_points": 58,
+        "unclassified_points": 45,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            10.65,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          10.65,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 7,
+        "sensor_time": 6.0,
+        "observed_pose_xyzw": [
+          5.217481919412956,
+          6.166329352654207,
+          1.0,
+          0.0,
+          0.0,
+          0.9945218953682733,
+          0.10452846326765346
+        ],
+        "static_points": 9463,
+        "dynamic_points": 53,
+        "unclassified_points": 22,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            11.2,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          11.2,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 8,
+        "sensor_time": 6.8,
+        "observed_pose_xyzw": [
+          5.217481919412956,
+          5.833670647345793,
+          1.0,
+          0.0,
+          0.0,
+          -0.9945218953682734,
+          0.10452846326765323
+        ],
+        "static_points": 9454,
+        "dynamic_points": 40,
+        "unclassified_points": 8,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            11.75,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          11.75,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 9,
+        "sensor_time": 7.6,
+        "observed_pose_xyzw": [
+          5.352786404500042,
+          5.5297717981660215,
+          1.0,
+          0.0,
+          0.0,
+          -0.9510565162951536,
+          0.3090169943749473
+        ],
+        "static_points": 9432,
+        "dynamic_points": 39,
+        "unclassified_points": 29,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            12.3,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          12.3,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 10,
+        "sensor_time": 8.4,
+        "observed_pose_xyzw": [
+          5.6,
+          5.307179676972449,
+          1.0,
+          0.0,
+          0.0,
+          -0.8660254037844388,
+          0.4999999999999997
+        ],
+        "static_points": 9393,
+        "dynamic_points": 35,
+        "unclassified_points": 30,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            12.850000000000001,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          12.850000000000001,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 11,
+        "sensor_time": 9.2,
+        "observed_pose_xyzw": [
+          5.916377229385876,
+          5.204382483705381,
+          1.0,
+          0.0,
+          0.0,
+          -0.7431448254773945,
+          0.6691306063588579
+        ],
+        "static_points": 9381,
+        "dynamic_points": 36,
+        "unclassified_points": 11,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            13.4,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          13.4,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 12,
+        "sensor_time": 10.0,
+        "observed_pose_xyzw": [
+          6.247213595499958,
+          5.239154786963877,
+          1.0,
+          0.0,
+          0.0,
+          -0.5877852522924732,
+          0.8090169943749473
+        ],
+        "static_points": 9364,
+        "dynamic_points": 33,
+        "unclassified_points": 7,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            13.95,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          13.95,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 13,
+        "sensor_time": 10.8,
+        "observed_pose_xyzw": [
+          6.535304485087087,
+          5.405484139618085,
+          1.0,
+          0.0,
+          0.0,
+          -0.4067366430758001,
+          0.913545457642601
+        ],
+        "static_points": 9321,
+        "dynamic_points": 30,
+        "unclassified_points": 24,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            14.5,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          14.5,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 14,
+        "sensor_time": 11.6,
+        "observed_pose_xyzw": [
+          6.730836366114081,
+          5.67461068553936,
+          1.0,
+          0.0,
+          0.0,
+          -0.2079116908177593,
+          0.9781476007338057
+        ],
+        "static_points": 9320,
+        "dynamic_points": 24,
+        "unclassified_points": 18,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            15.05,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          15.05,
+          4.0,
+          0.6
+        ]
+      },
+      {
+        "observation_id": 15,
+        "sensor_time": 12.4,
+        "observed_pose_xyzw": [
+          6.8,
+          5.999999999999999,
+          1.0,
+          0.0,
+          0.0,
+          -5.66553889764798e-16,
+          1.0
+        ],
+        "static_points": 9362,
+        "dynamic_points": 20,
+        "unclassified_points": 7,
+        "actor_box": {
+          "name": "moving_target",
+          "center": [
+            15.600000000000001,
+            4,
+            0.6
+          ],
+          "size": [
+            0.6,
+            0.8,
+            1.2
+          ]
+        },
+        "observed_actor_position": [
+          15.600000000000001,
+          4.0,
+          0.6
+        ]
+      }
+    ],
+    "static_boxes": [
+      {
+        "name": "floor",
+        "center": [
+          6,
+          6,
+          -0.1
+        ],
+        "size": [
+          12,
+          12,
+          0.2
+        ]
+      },
+      {
+        "name": "west_wall",
+        "center": [
+          0,
+          6,
+          1.5
+        ],
+        "size": [
+          0.2,
+          12,
+          3
+        ]
+      },
+      {
+        "name": "south_wall",
+        "center": [
+          6,
+          0,
+          1.5
+        ],
+        "size": [
+          12,
+          0.2,
+          3
+        ]
+      },
+      {
+        "name": "north_wall",
+        "center": [
+          6,
+          12,
+          1.5
+        ],
+        "size": [
+          12,
+          0.2,
+          3
+        ]
+      },
+      {
+        "name": "static_pillar",
+        "center": [
+          3.5,
+          4.0,
+          0.8
+        ],
+        "size": [
+          0.6,
+          0.6,
+          1.6
+        ]
+      },
+      {
+        "name": "static_table",
+        "center": [
+          8.7,
+          7.5,
+          0.65
+        ],
+        "size": [
+          1.2,
+          1.8,
+          1.3
+        ]
+      },
+      {
+        "name": "static_shelf",
+        "center": [
+          3.0,
+          9.0,
+          1.0
+        ],
+        "size": [
+          0.5,
+          2.0,
+          2.0
+        ]
+      },
+      {
+        "name": "east_wall_south",
+        "center": [
+          12,
+          1.5,
+          1.5
+        ],
+        "size": [
+          0.2,
+          3,
+          3
+        ]
+      },
+      {
+        "name": "east_wall_north",
+        "center": [
+          12,
+          8.5,
+          1.5
+        ],
+        "size": [
+          0.2,
+          7,
+          3
+        ]
+      }
+    ],
+    "world_sha256": "4543c1c46a012f1fd97c55f9e8dd0712747be4ed329a319072766dbe043cf796",
+    "scans_sha256": "1938cd4e01e337f99989ad811325a855fe65498adbf1ef9c989957272e808e34",
+    "sim2real_commit": "53324d40def0dd753b4a99021b8fe596955a1ecd",
+    "scenario": "departure",
+    "label_rule": "Independent SDF surface distance <=4 cm; ambiguous/unknown excluded; labels never sent to native code",
+    "scope": "Measurement annex in Sim2Real Gazebo world. Kinematic sensor/actor steps, no Nav2 or real loop closure.",
+    "status": "captured"
+  },
+  "revision_after": 16,
+  "input_observation_ids": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "future_observations_used": 0,
+  "C1": {
+    "voxel_m": 0.2,
+    "distinct_frame_support": 3,
+    "rule": "Old native keep OR at least 3 distinct old-pose frames in the same voxel; then reproject"
+  },
+  "parameters": {
+    "dis_range": 8,
+    "xy_resolution": 0.5,
+    "h_res": 0.2
+  },
+  "conditions": [
+    {
+      "amplitude_m": 0.0,
+      "changed_observation_ids": [],
+      "old_native_seconds": 0.6372902979999822,
+      "groups": {
+        "C0": {
+          "retained_source_points": 149555,
+          "static_retention_percent": 99.56837998621492,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.5424584107975,
+          "primitive_surface_precision_5cm_percent": 99.71448630938451,
+          "primitive_distance_p95_m": 0.023612356185913085,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.06997470038893,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C1": {
+          "retained_source_points": 150922,
+          "static_retention_percent": 99.99196986020866,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 100.0,
+          "primitive_surface_precision_5cm_percent": 99.2307284557586,
+          "primitive_distance_p95_m": 0.024252355098724365,
+          "dynamic_accuracy": 11.600928074245939,
+          "HA": 20.789847236188592,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C2": {
+          "retained_source_points": 149555,
+          "static_retention_percent": 99.56837998621492,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.5424584107975,
+          "primitive_surface_precision_5cm_percent": 99.71448630938451,
+          "primitive_distance_p95_m": 0.023612356185913085,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.06997470038893,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C4": {
+          "retained_source_points": 149555,
+          "static_retention_percent": 99.56837998621492,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.5424584107975,
+          "primitive_surface_precision_5cm_percent": 99.71448630938451,
+          "primitive_distance_p95_m": 0.023612356185913085,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.06997470038893,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        }
+      },
+      "C4_recovers_C2_deleted_source_points": 0,
+      "C4_deletes_C2_retained_source_points": 0,
+      "C4_recovers_C2_deleted_static_source_points": 0,
+      "C4_recovers_C2_deleted_dynamic_source_points": 0
+    },
+    {
+      "amplitude_m": 0.1,
+      "changed_observation_ids": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "old_native_seconds": 0.7043164970000078,
+      "groups": {
+        "C0": {
+          "retained_source_points": 149492,
+          "static_retention_percent": 99.52622175231033,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 97.52637805731946,
+          "primitive_surface_precision_5cm_percent": 93.26318465202151,
+          "primitive_distance_p95_m": 0.06493382573127734,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.05599690612685,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C1": {
+          "retained_source_points": 150934,
+          "static_retention_percent": 100.0,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 100.0,
+          "primitive_surface_precision_5cm_percent": 99.23078961665364,
+          "primitive_distance_p95_m": 0.024252355098724365,
+          "dynamic_accuracy": 11.600928074245939,
+          "HA": 20.79002079002079,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C2": {
+          "retained_source_points": 149492,
+          "static_retention_percent": 99.52622175231033,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.53400777458532,
+          "primitive_surface_precision_5cm_percent": 99.71436598613973,
+          "primitive_distance_p95_m": 0.023612520098686217,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.05599690612685,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C4": {
+          "retained_source_points": 149555,
+          "static_retention_percent": 99.56837998621492,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.5424584107975,
+          "primitive_surface_precision_5cm_percent": 99.71448630938451,
+          "primitive_distance_p95_m": 0.023612356185913085,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.06997470038893,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        }
+      },
+      "C4_recovers_C2_deleted_source_points": 63,
+      "C4_deletes_C2_retained_source_points": 0,
+      "C4_recovers_C2_deleted_static_source_points": 63,
+      "C4_recovers_C2_deleted_dynamic_source_points": 0
+    },
+    {
+      "amplitude_m": 0.3,
+      "changed_observation_ids": [
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15
+      ],
+      "old_native_seconds": 0.7344370229999981,
+      "groups": {
+        "C0": {
+          "retained_source_points": 148613,
+          "static_retention_percent": 99.01697705387555,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 95.81331337373543,
+          "primitive_surface_precision_5cm_percent": 90.73566915411169,
+          "primitive_distance_p95_m": 0.1219418430328372,
+          "dynamic_accuracy": 77.49419953596288,
+          "HA": 86.94340523366756,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C1": {
+          "retained_source_points": 150727,
+          "static_retention_percent": 99.93308216840542,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.9975855325108,
+          "primitive_surface_precision_5cm_percent": 99.30072249829162,
+          "primitive_distance_p95_m": 0.024199428558349573,
+          "dynamic_accuracy": 19.87625676720804,
+          "HA": 33.1576088869863,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C2": {
+          "retained_source_points": 148613,
+          "static_retention_percent": 99.01697705387555,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.40483376391337,
+          "primitive_surface_precision_5cm_percent": 99.79207740910957,
+          "primitive_distance_p95_m": 0.023582340776920323,
+          "dynamic_accuracy": 77.49419953596288,
+          "HA": 86.94340523366756,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        },
+        "C4": {
+          "retained_source_points": 149555,
+          "static_retention_percent": 99.56837998621492,
+          "labelled_static_points": 149437,
+          "labelled_dynamic_points": 1293,
+          "unclassified_points": 354,
+          "observed_surface_coverage_5cm_percent": 99.5424584107975,
+          "primitive_surface_precision_5cm_percent": 99.71448630938451,
+          "primitive_distance_p95_m": 0.023612356185913085,
+          "dynamic_accuracy": 68.36813611755606,
+          "HA": 81.06997470038893,
+          "reason": "SDF-labelled historical source points; ambiguous/unknown excluded"
+        }
+      },
+      "C4_recovers_C2_deleted_source_points": 942,
+      "C4_deletes_C2_retained_source_points": 0,
+      "C4_recovers_C2_deleted_static_source_points": 824,
+      "C4_recovers_C2_deleted_dynamic_source_points": 118
+    }
+  ],
+  "C4_native_seconds": 0.6304756140000052,
+  "zero_revision_equivalence": true,
+  "status": "completed_departure_pilot",
+  "interpretation": "C4-C2 tests historical-decision sensitivity; C1 may match or outperform. No H1 success asserted."
+}

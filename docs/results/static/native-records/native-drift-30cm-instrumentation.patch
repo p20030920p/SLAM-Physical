@@ -1,0 +1,26 @@
+--- a/utils/pcdpy3.py
++++ b/utils/pcdpy3.py
+@@ -168,11 +168,11 @@
+         elif key in ('fields', 'type'):
+             metadata[key] = value.split()
+         elif key in ('size', 'count'):
+-            metadata[key] = map(int, value.split())
++            metadata[key] = list(map(int, value.split()))
+         elif key in ('width', 'height', 'points'):
+             metadata[key] = int(value)
+         elif key == 'viewpoint':
+-            metadata[key] = map(float, value.split())
++            metadata[key] = list(map(float, value.split()))
+         elif key == 'data':
+             metadata[key] = value.strip().lower()
+     # add some reasonable by defaults is not exist
+--- a/main.py
++++ b/main.py
+@@ -130,6 +130,7 @@
+ 
+     # save static map
+     points_index2Retain =np.setdiff1d(np.arange(len(Mpts.original_points)), points_index2Remove)
++    np.save(f"{data_dir}/retained_indices.npy", points_index2Retain)
+     save_pcd(f"{data_dir}/beautymap_output.pcd", Mpts.original_points[points_index2Retain]) # static map
+ 
+     # show timer

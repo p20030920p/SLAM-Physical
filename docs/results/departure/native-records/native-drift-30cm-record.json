@@ -1,0 +1,45 @@
+{
+  "command": [
+    "/home/qzl/projects/SLAM_Author_Originals/envs/lidar/bin/python",
+    "-u",
+    "/mnt/d/workspace/be2/SLAM-Physical/runs/departure-20261014-022953-e073b6/comparison/native-drift-30cm/author-code/main.py",
+    "--data_dir",
+    "/mnt/d/workspace/be2/SLAM-Physical/runs/departure-20261014-022953-e073b6/comparison/native-drift-30cm/input",
+    "--dis_range",
+    "8",
+    "--xy_resolution",
+    "0.5",
+    "--h_res",
+    "0.2"
+  ],
+  "commit": "98bce4a97db96ddd0d5342e31425c7679f58ba2e",
+  "exit_code": 0,
+  "seconds": 0.7344370229999981,
+  "frames": 16,
+  "parameters": {
+    "dis_range": 8,
+    "xy_resolution": 0.5,
+    "h_res": 0.2
+  },
+  "scan_sha256": {
+    "000000.pcd": "3412b1dc35cd8a02ca64af63e1a36c1c3d3ddb3efc20684cef4a5dbc7c0a5474",
+    "000001.pcd": "50fc28534b164e15c1fa8938ffdfe26cb24532a1d74e4221d7613a6c642eaff8",
+    "000002.pcd": "eea18ee533a2a6fa8d2f02f3a6219f110a93c9c10686b9137f69d5ac52726cbf",
+    "000003.pcd": "298bd08db2ecadb1361f5a4442123867a9e2e7103d2f40faee4b37061fa09494",
+    "000004.pcd": "73c7de6b0dfa3c35e925ec52495775d77dac171235e6b3158337e3d7874d40c4",
+    "000005.pcd": "c012bca0979f593e2a04cd25c9f0dcb98f9f90fc7df916a255086cbd8b7dfe9b",
+    "000006.pcd": "c9255e9903de0555820e4a70c7328f7df5cc592658f1bd74df67f4a87a4724fc",
+    "000007.pcd": "986cb6f663b355709726a1df452f4151aa75464bb45530d40677da7ffcb0326e",
+    "000008.pcd": "2b501d7ac813772ce28b58bbc6a3008ead7704dea501b798f50e78142d2be0ce",
+    "000009.pcd": "3e625c145f16ba46b4ed242583dbfec0983a93764835f5fe6445766d09dbd49e",
+    "000010.pcd": "059df72c094eb99d9f7ec383c848305d19af442ddfd6cdad1dea2841378fbd3e",
+    "000011.pcd": "2ebf090995198620eee12cf566a6803c6fcdcc8aed3db68a911c0380538320b1",
+    "000012.pcd": "a6f6294ebac63a43c59b5da1f6d3a9f45a1ef1b64d5489b1a3cf5bd20dca9b15",
+    "000013.pcd": "268eee6ebb5c08a499fe776242f0ba0be7d24ac4813f64d90e3e9805e399ac83",
+    "000014.pcd": "9226926cfb9c0d7964896ccf06f1c2b77ae21928150c0a8023fb3695f6eabbc3",
+    "000015.pcd": "5042fce67da5c485a4f007fb9613ee4a90cfde2437e1428787b4d09b93deb601"
+  },
+  "raw_map_sha256": "4d5c48af67f83dd450504818490c64ef832b38aef47fbea78bf3d674a73de772",
+  "instrumentation_sha256": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+  "scope": "Original classification code; iterator compatibility and retained-index export only"
+}

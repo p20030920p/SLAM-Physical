@@ -1,0 +1,44 @@
+{
+  "runs": [
+    {
+      "run": "reproduce-beautymap-20261014-022507-3f4b57",
+      "method": "beautymap",
+      "status": "completed",
+      "elapsed_seconds": 3.5567295339999987,
+      "output_points": 1001072,
+      "frames": 8,
+      "scope": "Fresh native mapping demo on released KITTI scans; accumulated raw map, not paper-table scoring",
+      "record_sha256": "2193be6a8d429b230fb3c99d257df32e997ae1ee39fa8c2410169c864c545f6d"
+    },
+    {
+      "run": "reproduce-dufomap-check-02",
+      "method": "dufomap",
+      "status": "completed",
+      "elapsed_seconds": 1.9509207020000048,
+      "output_points": 1004435,
+      "frames": 8,
+      "scope": "Fresh native mapping demo on released KITTI scans; accumulated raw map, not paper-table scoring",
+      "record_sha256": "69d0f3c1173cb4ab34d8c143aca9e7228ed712c6b2decc4058de6d265aac0c19"
+    },
+    {
+      "run": "reproduce-conceptgraphs-check-01",
+      "method": "conceptgraphs",
+      "status": "completed",
+      "elapsed_seconds": 83.08398169200001,
+      "output_points": 2700,
+      "frames": 4,
+      "scope": "Fresh SAM/CLIP and native mapping on resized Replica demo subset; no semantic benchmark, hierarchy or navigation claim",
+      "record_sha256": "7dfaf1a5638ce3244a7d93f227461c2eed0e6c00265398d75ecf30cd21b992a0"
+    },
+    {
+      "run": "reproduce-hovsg-20261014-022751-1fdbb3",
+      "method": "hovsg",
+      "status": "completed",
+      "elapsed_seconds": 51.173106954000005,
+      "output_points": 155295,
+      "frames": 4,
+      "scope": "Fresh SAM/CLIP and native mapping on resized Replica demo subset; no semantic benchmark, hierarchy or navigation claim",
+      "record_sha256": "f1809f0ed1dfead021ec61fc0a504fd2e21f4419315329b7f7436a4568f8f816"
+    }
+  ]
+}

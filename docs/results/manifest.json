@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-14",
+  "files": {
+    "docs/results/static/summary.json": "910b5e08f6ebffd2fa62a2a8814123dfecb77afee97a6bb49f0563fa3899d9a2",
+    "docs/results/static/metrics.csv": "4d6a048472808aa8522176823991f084190f2b4d3dc7b623162300c87025a062",
+    "docs/results/static/REPORT.md": "9ce9fe6b80c3a3cb5a174999f4d848e4e4d8c3adb65883ace3d2badd57a4a389",
+    "docs/results/static/maps.png": "4922aacb869268d2bf72f273dab7dd9400505723c6c10274d7a4c19066291547",
+    "docs/results/static/native-records/native-c4-record.json": "27e1d23098982fd7668e03a1785dcb48a9c76ad3dfcbbdc296cd3b2029b0f33e",
+    "docs/results/static/native-records/native-c4-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/static/native-records/native-drift-00cm-record.json": "8ec24c63598c0e13ac8a0d4ce95514a492ba5a6403cf24cb9b6effa11493b024",
+    "docs/results/static/native-records/native-drift-00cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/static/native-records/native-drift-10cm-record.json": "10afe59958ca81e47db63e5fa644f94ce98b3754283bcd8dab97b1d97d0940c1",
+    "docs/results/static/native-records/native-drift-10cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/static/native-records/native-drift-30cm-record.json": "81802b429d3d797f327a58a799e78921d9b6f04dcb277d32d835645a48c83fa2",
+    "docs/results/static/native-records/native-drift-30cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/departure/summary.json": "4b1a7077458286200d72c0538a184635eccda611ce5dedcd3fa9600bc15906f3",
+    "docs/results/departure/metrics.csv": "733f9d7c1e50e869ba7883b8be1a36442cbbd09e19f8dd9f15a18e3a12eebb25",
+    "docs/results/departure/REPORT.md": "c90ddca9bf3b35cf6328cd2f867a805f1656b51f5986338546a22ff5c1f9e3dd",
+    "docs/results/departure/maps.png": "6a4a793531d85e08870e221b28aa978ea8bceca2a89fb04ebfa5877a25379012",
+    "docs/results/departure/native-records/native-c4-record.json": "e3ffee961f64ddb16207371dc8c6654c856b97d2e9f9deb48bc141bbe07c3db3",
+    "docs/results/departure/native-records/native-c4-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/departure/native-records/native-drift-00cm-record.json": "cc5b7298f6ae9ce21b771290ab7266a3b9c5a94571d929ac0e9d9310eef4da31",
+    "docs/results/departure/native-records/native-drift-00cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/departure/native-records/native-drift-10cm-record.json": "ac667a37b335b3276e69738f737f6ac70c0d9920d93a9b979aba5c52006c15b2",
+    "docs/results/departure/native-records/native-drift-10cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2",
+    "docs/results/departure/native-records/native-drift-30cm-record.json": "ec048767dd9d1557cb4cbe4ad7fa3364f8386f515a446f8a4d9cbe8f613f7e86",
+    "docs/results/departure/native-records/native-drift-30cm-instrumentation.patch": "7eefad64e312fc7a4e34a8863d6a195008b8f94734af9cdf7c4b7cc48da99ee2"
+  },
+  "runs": {
+    "static": "static-20261014-022027-4950a7",
+    "departure": "departure-20261014-022953-e073b6"
+  }
+}

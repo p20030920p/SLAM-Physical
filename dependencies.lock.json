@@ -1,0 +1,8 @@
+{
+  "beautymap": {"url": "https://github.com/MKJia/BeautyMap.git", "commit": "98bce4a97db96ddd0d5342e31425c7679f58ba2e"},
+  "conceptgraphs": {"url": "https://github.com/concept-graphs/concept-graphs.git", "commit": "93277a02bd89171f8121e84203121cf7af9ebb5d"},
+  "hovsg": {"url": "https://github.com/hovsg/HOV-SG.git", "commit": "d6e65a53c8be6faec3f01f00d1644d967f89e605"},
+  "sim2real": {"url": "https://github.com/p20030920p/Sim2Real-AlgoBench.git", "commit": "53324d40def0dd753b4a99021b8fe596955a1ecd"},
+  "simulation": {"ubuntu": "24.04", "ros": "jazzy", "gazebo": "harmonic"},
+  "existing_algorithm_distro": "Ubuntu-22.04"
+}
