@@ -16,8 +16,8 @@ import numpy as np
 from PIL import Image
 
 
-def prepare(runtime, output, frames):
-    original = runtime / "data/replica-full/Replica"
+def prepare(runtime, output, frames, recording=None):
+    original = recording if recording else runtime / "data/replica-full/Replica"
     target = output / "input"
     scene = target / "room0"
     (scene / "results").mkdir(parents=True)
@@ -25,7 +25,7 @@ def prepare(runtime, output, frames):
     depth = sorted((original / "room0/results").glob("depth*.png"))
     if not rgb or len(rgb) != len(depth):
         raise RuntimeError("Replica RGB/depth inputs unavailable")
-    selected = np.linspace(0, len(rgb) - 1, frames, dtype=int)
+    selected = np.linspace(0, len(rgb) - 1, min(frames, len(rgb)), dtype=int)
     trajectory = (original / "room0/traj.txt").read_text().splitlines()
     lines = []
     hashes = []
@@ -64,13 +64,14 @@ def main():
     parser.add_argument("--runtime", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--frames", type=int, default=8)
+    parser.add_argument("--recording", type=Path)
     args = parser.parse_args()
     runtime, output = args.runtime, args.output
     if not 2 <= args.frames <= 40:
         raise ValueError(
             "Demo accepts 2..40 frames; full benchmarks use the original protocol"
         )
-    inputs, hashes = prepare(runtime, output, args.frames)
+    inputs, hashes = prepare(runtime, output, args.frames, args.recording)
     os.environ.update(
         {
             "OMP_NUM_THREADS": "2",
@@ -112,6 +113,9 @@ def main():
         "resolution": [320, 180],
         "sam_batch": 16,
         "fresh_frontend": True,
+        "input_kind": "recorded Gazebo RGB-D"
+        if args.recording
+        else "Replica demo subset",
     }
     if method == "hovsg":
         from hovsg.graph.graph import Graph
@@ -145,6 +149,23 @@ def main():
         env = os.environ.copy()
         env["PYTHONPATH"] = str(source) + os.pathsep + env.get("PYTHONPATH", "")
         config = source / "conceptgraph/dataset/dataconfigs/replica/replica.yaml"
+        if args.recording:
+            from omegaconf import OmegaConf
+
+            dataset_config = OmegaConf.load(config)
+            camera = json.loads((inputs / "cam_params.json").read_text())["camera"]
+            for name, value in {
+                "image_height": camera["h"],
+                "image_width": camera["w"],
+                "fx": camera["fx"],
+                "fy": camera["fy"],
+                "cx": camera["cx"],
+                "cy": camera["cy"],
+                "png_depth_scale": camera["scale"],
+            }.items():
+                dataset_config.camera_params[name] = value
+            config = output / "recorded_replica.yaml"
+            OmegaConf.save(dataset_config, config)
         front = [
             sys.executable,
             "-u",

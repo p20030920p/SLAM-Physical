@@ -1,0 +1,78 @@
+{
+  "mapping_recording": "/mnt/d/workspace/be2/SLAM-Physical/runs/amcl-live-20261014-025624-a4835b",
+  "source_scans_sha256": "057a1ca51575621c26a6932d408963d95409832a30a35dc0d999509c49d1ed82",
+  "pose_source": "wheel odometry with declared start anchor and fixed extrinsics; no truth poses",
+  "lidar_observation_ids": [
+    0,
+    3,
+    6,
+    9,
+    13,
+    16,
+    19,
+    22,
+    26,
+    29,
+    32,
+    35,
+    39,
+    42,
+    45,
+    49
+  ],
+  "semantic_frames_requested": 4,
+  "methods": {
+    "raw": {
+      "status": "completed",
+      "family": "lidar",
+      "output_points": 165864,
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/raw/map.yaml",
+      "mapping_and_export_wall_s": 0.30823454699999964,
+      "projection_wall_s": 0.30823449599999986
+    },
+    "beautymap": {
+      "status": "completed",
+      "family": "lidar",
+      "output_points": 152734,
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/beautymap/map.yaml",
+      "mapping_and_export_wall_s": 1.3927990069999998,
+      "projection_wall_s": 0.2947345160000001
+    },
+    "dufomap": {
+      "status": "completed",
+      "family": "lidar",
+      "output_points": 158791,
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/dufomap/map.yaml",
+      "mapping_and_export_wall_s": 0.5273328310000007,
+      "projection_wall_s": 0.31599339000000004
+    },
+    "rgbd-raw": {
+      "status": "completed",
+      "family": "rgbd_geometry_projection",
+      "source_frames": [
+        0,
+        16,
+        32,
+        49
+      ],
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/rgbd-raw/map.yaml"
+    },
+    "conceptgraphs": {
+      "status": "completed",
+      "family": "rgbd_geometry_projection",
+      "output_points": 26681,
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/conceptgraphs/map.yaml",
+      "mapping_and_export_wall_s": 50.743912736,
+      "projection_wall_s": 1.0928262120000056
+    },
+    "hovsg": {
+      "status": "completed",
+      "family": "rgbd_geometry_projection",
+      "output_points": 69723,
+      "map_yaml": "/mnt/d/workspace/be2/SLAM-Physical/runs/localization-maps-20261014-030117-ca8284/maps/hovsg/map.yaml",
+      "mapping_and_export_wall_s": 51.067920978000004,
+      "projection_wall_s": 1.0388924700000075
+    }
+  },
+  "scope": "offline mapping followed by common AMCL; semantic geometry projection does not use CLIP or hierarchy during localization"
+}

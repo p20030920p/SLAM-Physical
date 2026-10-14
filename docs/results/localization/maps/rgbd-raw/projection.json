@@ -1,0 +1,25 @@
+{
+  "grid": {
+    "resolution": 0.05,
+    "origin": [
+      -1.0,
+      -1.0,
+      0.0
+    ],
+    "width": 280,
+    "height": 280,
+    "height_band": [
+      0.5,
+      0.8
+    ],
+    "dilation_cells": 1
+  },
+  "method": "rgbd-raw",
+  "mapping_recording": "/mnt/d/workspace/be2/SLAM-Physical/runs/amcl-live-20261014-025624-a4835b",
+  "rgbd_ids": [
+    0,
+    16,
+    32,
+    49
+  ]
+}

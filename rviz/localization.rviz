@@ -1,0 +1,61 @@
+Panels:
+  - Class: rviz_common/Displays
+    Name: Displays
+  - Class: rviz_common/Tool Properties
+    Name: Tool Properties
+Visualization Manager:
+  Class: ''
+  Global Options:
+    Background Color: 35; 39; 44
+    Fixed Frame: map
+    Frame Rate: 15
+  Displays:
+    - Class: rviz_default_plugins/Map
+      Name: AMCL occupancy map
+      Enabled: true
+      Topic: {Value: /map, Durability Policy: Transient Local, Reliability Policy: Reliable, Depth: 1}
+      Alpha: 0.8
+    - Class: rviz_default_plugins/LaserScan
+      Name: Live scan in estimated pose
+      Enabled: true
+      Topic: {Value: /scan, Reliability Policy: Best Effort, Depth: 5}
+      Style: Points
+      Size (m): 0.04
+      Color Transformer: FlatColor
+      Color: 255; 100; 80
+    - Class: rviz_default_plugins/PoseWithCovariance
+      Name: AMCL pose and covariance
+      Enabled: false
+      Topic: {Value: /amcl_pose, Reliability Policy: Reliable, Depth: 5}
+      Color: 80; 150; 255
+    - Class: rviz_default_plugins/Path
+      Name: Ground truth trajectory - GREEN
+      Enabled: true
+      Topic: {Value: /localization/truth_path, Reliability Policy: Reliable, Depth: 1}
+      Color: 50; 240; 80
+      Line Style: Lines
+      Line Width: 0.04
+    - Class: rviz_default_plugins/Path
+      Name: Estimated trajectory - BLUE
+      Enabled: true
+      Topic: {Value: /localization/estimate_path, Reliability Policy: Reliable, Depth: 1}
+      Color: 60; 150; 255
+      Line Style: Lines
+      Line Width: 0.04
+    - Class: rviz_default_plugins/MarkerArray
+      Name: Live error and robot arrows
+      Enabled: true
+      Topic: {Value: /localization/markers, Reliability Policy: Reliable, Depth: 1}
+  Tools:
+    - Class: rviz_default_plugins/Interact
+    - Class: rviz_default_plugins/MoveCamera
+    - Class: rviz_default_plugins/SetInitialPose
+      Topic: /initialpose
+  Views:
+    Current:
+      Class: rviz_default_plugins/TopDownOrtho
+      Scale: 45
+      X: 6
+      Y: 6
+      Angle: 0
+Window Geometry: {Width: 1400, Height: 900}

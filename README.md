@@ -4,6 +4,17 @@
 
 这是 [SLAM_Learning](https://github.com/p20030920p/SLAM_Learning) 的独立仿真实验与本机演示仓库。当前实现 BeautyMap 静态位姿修正、C1/C2/C4 对照，以及首个物体离场检查场景。所有演示重新执行算法，命令行显示真实进度，RViz 显示当前运行产生的点云。
 
+**新增：Windows / WSL2 键盘驾驶、AMCL 实时偏移与录制。** [操作指南及论文接入办法](docs/WINDOWS_AMCL.zh-CN.md)。新实验使用有轮关节与碰撞的移动底盘，单独评测定位；下文原有传感器架实验保持自己的范围。
+
+| 新入口 | 用途 |
+|---|---|
+| [10_amcl_keyboard.cmd](10_amcl_keyboard.cmd) | 移动仿真、AMCL、RViz、Windows 键盘终端及自动录制 |
+| [11_build_localization_maps.cmd](11_build_localization_maps.cmd) | 从一次驾驶生成 raw、BeautyMap、DUFOMap、RGB-D raw、ConceptGraphs、HOV-SG 的定位地图 |
+| [12_amcl_choose_map.cmd](12_amcl_choose_map.cmd) | 选择算法地图，键盘驾驶并观看实时偏移 |
+| [13_compare_localization.cmd](13_compare_localization.cmd) | 选择另一次测试录制，相同输入逐图回放，输出误差、观测延迟与 CPU/RSS 对照 |
+
+先用 `10` 录制建图路线，用 `11` 生成地图；再用 `10` 或 `12` 录制独立测试路线，最后用 `13` 比较。`10` 默认地图来自明确标注的 SDF 参考几何。算法地图来自录制传感器与轮速位姿，不用真值填空白。CG/HOV 这里只检验几何投影的定位影响，AMCL 不消费语义特征。建图耗时与定位耗时分开记录。
+
 ## 本机双击入口
 
 在本机 `D:\workspace\be2\SLAM-Physical` 使用：

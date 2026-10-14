@@ -1,0 +1,18 @@
+{
+  "status": "scored",
+  "matched_pose_updates": 360,
+  "live_prediction_samples": 1059,
+  "position_rmse_m": 0.068195862886732,
+  "position_p95_m": 0.19861368359517934,
+  "yaw_rmse_deg": 1.4115416997252972,
+  "observed_scan_to_pose_wall_p50_ms": 2.6445295000030455,
+  "observed_scan_to_pose_wall_p95_ms": 16.680904999918766,
+  "pose_delivery_gap_wall_p95_s": 0.11367258959999162,
+  "timing_scope": "local observer scan-arrival to matching AMCL pose-arrival, including scheduling; not internal AMCL CPU runtime",
+  "accuracy_scope": "same simulator map coordinates and timestamps, without SE2 alignment; evaluation truth is not supplied to AMCL",
+  "stationary_note": "AMCL movement thresholds suppress updates when stationary; gaps alone are not failures",
+  "amcl_process_tree_cpu_mean_one_core_percent": 3.0919649219146357,
+  "amcl_process_tree_rss_peak_mib": 73.1796875,
+  "observed_real_time_factor_median": 0.9997955228195036,
+  "cpu_scope": "owned ros2 run wrapper and AMCL descendant processes; 100 percent means one CPU core"
+}
