@@ -1,0 +1,7 @@
+﻿{
+    "status":  "completed",
+    "benchmark":  "static-dynamic-20261014-033854-8e3b79",
+    "raw_data":  "local runs folder; not included in portable evidence",
+    "local_path":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79",
+    "pose_source":  "provided"
+}

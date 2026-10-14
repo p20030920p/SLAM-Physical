@@ -27,6 +27,7 @@ from tf2_ros import StaticTransformBroadcaster, TransformBroadcaster
 from visualization_msgs.msg import Marker, MarkerArray
 
 from slam_physical.capture import _cloud_xyz
+from slam_physical.dynamic_scene import ACTORS
 from slam_physical.pose_tools import interpolate_pose, matrix, wrap, yaw_of
 from slam_physical.storage import write_json
 
@@ -38,7 +39,14 @@ def seconds(stamp):
 
 
 class DriveTelemetry(Node):
-    def __init__(self, run: Path, linear_scale=1.0, angular_scale=1.0, collect=True):
+    def __init__(
+        self,
+        run: Path,
+        linear_scale=1.0,
+        angular_scale=1.0,
+        collect=True,
+        scenario="static",
+    ):
         super().__init__(
             "drive_telemetry",
             parameter_overrides=[Parameter("use_sim_time", value=True)],
@@ -62,6 +70,11 @@ class DriveTelemetry(Node):
         self.amcl_count = 0
         self.matched_count = 0
         self.first_ready = None
+        self.first_ready_sim = None
+        self.actor_observations = {}
+        self.actor_file = (run / "actor_observations.csv").open("w", newline="")
+        self.actor_csv = csv.writer(self.actor_file)
+        self.actor_csv.writerow(["stamp_sim_s", "name", "x", "y", "z"])
         self.tf = TransformBroadcaster(self)
         self.static = StaticTransformBroadcaster(self)
         static = []
@@ -135,6 +148,17 @@ class DriveTelemetry(Node):
                 PoseWithCovarianceStamped, "/amcl_pose", self.on_amcl, 20
             ),
         ]
+        if scenario == "dynamic":
+            for actor in ACTORS:
+                name = actor["name"]
+                self.owned_subscriptions.append(
+                    self.create_subscription(
+                        TFMessage,
+                        "/dynamic/" + name,
+                        lambda message, name=name: self.on_actor(name, message),
+                        qos_profile_sensor_data,
+                    )
+                )
         if collect:
             self.owned_subscriptions += [
                 self.create_subscription(
@@ -220,6 +244,16 @@ class DriveTelemetry(Node):
             (seconds(item.header.stamp), t.x, t.y, yaw_of(item.transform.rotation))
         )
 
+    def on_actor(self, name, message):
+        if len(message.transforms) != 1:
+            raise RuntimeError("Actor publisher must contain one model pose")
+        item = message.transforms[0]
+        p = item.transform.translation
+        stamp = seconds(item.header.stamp)
+        self.actor_observations[name] = (stamp, p.x, p.y, p.z)
+        self.actor_csv.writerow([stamp, name, p.x, p.y, p.z])
+        self.actor_file.flush()
+
     def on_amcl(self, message):
         wall = time.monotonic()
         stamp = seconds(message.header.stamp)
@@ -251,6 +285,7 @@ class DriveTelemetry(Node):
             self.matched_count += 1
         if self.first_ready is None and self.truth and self.odometry:
             self.first_ready = wall
+            self.first_ready_sim = self.get_clock().now().nanoseconds * 1e-9
             write_json(
                 self.run / "ready.json",
                 {
@@ -445,6 +480,30 @@ class DriveTelemetry(Node):
         text.color.r = text.color.g = text.color.b = text.color.a = 1.0
         text.text = f"Error {error*100:.1f} cm | yaw {math.degrees(wrap(estimate[2]-truth[2])):.1f} deg\nGreen: truth | Blue: AMCL | Last pose: {age:.2f} s"
         markers.append(text)
+        for index, actor in enumerate(ACTORS):
+            observed = self.actor_observations.get(actor["name"])
+            if observed is None:
+                continue
+            marker = Marker()
+            marker.header = text.header
+            marker.ns, marker.id, marker.type, marker.action = (
+                "dynamic_truth",
+                index,
+                Marker.CUBE,
+                Marker.ADD,
+            )
+            marker.pose.position.x, marker.pose.position.y, marker.pose.position.z = (
+                observed[1:]
+            )
+            marker.pose.orientation.w = 1.0
+            marker.scale.x, marker.scale.y, marker.scale.z = actor["size"]
+            marker.color.r, marker.color.g, marker.color.b, marker.color.a = (
+                1.0,
+                0.4,
+                0.05,
+                0.55,
+            )
+            markers.append(marker)
         self.markers.publish(MarkerArray(markers=markers))
 
     def finish(self):
@@ -452,6 +511,7 @@ class DriveTelemetry(Node):
             self.cmd_pub.publish(Twist())
         self.amcl_file.close()
         self.live_file.close()
+        self.actor_file.close()
         if self.clouds:
             archive = {f"scan_{i:04d}": scan for i, scan in enumerate(self.clouds)}
             archive.update(

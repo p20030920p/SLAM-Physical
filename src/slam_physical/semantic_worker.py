@@ -223,6 +223,10 @@ def main():
                 clouds.append(np.asarray(obj["pcd_np"]))
             elif "pcd" in obj:
                 clouds.append(np.asarray(obj["pcd"].points))
+        if not clouds:
+            raise RuntimeError(
+                "ConceptGraphs retained no objects after native multi-view filtering; increase recorded view coverage, not fabricated map geometry"
+            )
         points = np.concatenate(clouds)
         record.update(
             {

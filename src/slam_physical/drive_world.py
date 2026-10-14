@@ -6,6 +6,8 @@ import math
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from slam_physical.dynamic_scene import actor_boxes
+from slam_physical.storage import write_json
 from slam_physical.world import _text, build_world
 
 __all__ = ["build_drive_world", "ROBOT_START", "LIDAR_HEIGHT"]
@@ -71,12 +73,43 @@ def _lidar(link, name, topic, rows, rate):
         _text(ranges, key, value)
 
 
-def build_drive_world(path: Path, assets: Path, scenario="static") -> list[dict]:
-    boxes = build_world(path, assets, scenario)
+def build_drive_world(
+    path: Path, assets: Path, scenario="static", phase=0.0
+) -> list[dict]:
+    if scenario not in ("static", "dynamic"):
+        raise ValueError("Driving supports static or dynamic scenes")
+    boxes = build_world(path, assets, "static")
     root = ET.parse(path).getroot()
     world = root.find("world")
     world.set("name", "slam_drive")
     world.remove(world.find("model[@name='scan_rig']"))
+    for box in actor_boxes(0, phase) if scenario == "dynamic" else []:
+        actor = ET.SubElement(world, "model", name=box["name"])
+        _text(actor, "static", "true")
+        _text(actor, "pose", " ".join(map(str, box["center"])) + " 0 0 0")
+        body = ET.SubElement(actor, "link", name="body")
+        for mode in ("visual", "collision"):
+            item = ET.SubElement(body, mode, name=mode)
+            _shape(item, "box", {"size": " ".join(map(str, box["size"]))})
+            if mode == "visual":
+                material = ET.SubElement(item, "material")
+                _text(material, "ambient", ".95 .35 .08 1")
+                _text(material, "diffuse", ".95 .35 .08 1")
+        publisher = ET.SubElement(
+            actor,
+            "plugin",
+            filename="gz-sim-pose-publisher-system",
+            name="gz::sim::systems::PosePublisher",
+        )
+        for key, value in [
+            ("publish_model_pose", "true"),
+            ("publish_link_pose", "false"),
+            ("publish_nested_model_pose", "false"),
+            ("use_pose_vector_msg", "true"),
+            ("static_publisher", "false"),
+            ("update_frequency", 10),
+        ]:
+            _text(publisher, key, value)
     # Real wheel joints and contact dynamics; never set_pose the robot.
     robot = ET.SubElement(world, "model", name="drive_robot")
     _text(robot, "pose", "6 6 .15 0 0 0")
@@ -183,4 +216,16 @@ def build_drive_world(path: Path, assets: Path, scenario="static") -> list[dict]
     _text(view, "camera_pose", "15 0 14 0 .9 2.4")
     ET.indent(root)
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
+    write_json(
+        path.with_suffix(".json"),
+        {
+            "static_boxes": boxes,
+            "scenario": scenario,
+            "kinematic_rig": False,
+            "robot_motion": "wheel joints and collision dynamics; no robot set_pose",
+            "dynamic_actors": actor_boxes(0, phase) if scenario == "dynamic" else [],
+            "dynamic_motion": "10 Hz scripted set_pose_vector for obstacles only; simulated time",
+            "actor_phase_s": phase,
+        },
+    )
     return boxes

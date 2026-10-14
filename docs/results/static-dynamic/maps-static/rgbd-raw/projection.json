@@ -1,0 +1,45 @@
+{
+  "grid": {
+    "resolution": 0.05,
+    "origin": [
+      -1.0,
+      -1.0,
+      0.0
+    ],
+    "width": 280,
+    "height": 280,
+    "height_band": [
+      0.5,
+      0.8
+    ],
+    "dilation_cells": 1
+  },
+  "method": "rgbd-raw",
+  "mapping_recording": "/mnt/d/workspace/be2/SLAM-Physical/runs/static-dynamic-20261014-033854-8e3b79/recordings/static-mapping",
+  "rgbd_ids": [
+    0,
+    1,
+    3,
+    4,
+    6,
+    8,
+    9,
+    11,
+    13,
+    14,
+    16,
+    18,
+    19,
+    21,
+    23,
+    24,
+    26,
+    28,
+    29,
+    31,
+    33,
+    34,
+    36,
+    38
+  ]
+}

@@ -1,0 +1,77 @@
+﻿{
+    "status":  "completed",
+    "mapping_duration_sim_s":  40,
+    "test_duration_sim_s":  26,
+    "repeats":  3,
+    "frames":  40,
+    "semantic_frames":  24,
+    "stages":  [
+                   {
+                       "name":  "static-mapping",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\static-mapping.log"
+                   },
+                   {
+                       "name":  "static-test",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\static-test.log"
+                   },
+                   {
+                       "name":  "dynamic-mapping",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\dynamic-mapping.log"
+                   },
+                   {
+                       "name":  "dynamic-test",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\dynamic-test.log"
+                   },
+                   {
+                       "name":  "static-provided-poses",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\static-provided-poses.log"
+                   },
+                   {
+                       "name":  "static-maps",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\static-maps.log"
+                   },
+                   {
+                       "name":  "dynamic-provided-poses",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\dynamic-provided-poses.log"
+                   },
+                   {
+                       "name":  "dynamic-maps",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\dynamic-maps.log"
+                   },
+                   {
+                       "name":  "static-comparison",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\static-comparison.log"
+                   },
+                   {
+                       "name":  "dynamic-comparison",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\dynamic-comparison.log"
+                   },
+                   {
+                       "name":  "clean-map-dynamic-test",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\clean-map-dynamic-test.log"
+                   },
+                   {
+                       "name":  "report",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\report.log"
+                   },
+                   {
+                       "name":  "video",
+                       "status":  "completed",
+                       "log":  "D:\\workspace\\be2\\SLAM-Physical\\runs\\static-dynamic-20261014-033854-8e3b79\\video.log"
+                   }
+               ],
+    "protocol":  "Independent mapping A and test B per scene; identical B for all maps; repeated fresh AMCL. Extra clean-map/dynamic-test control.",
+    "pose_source":  "provided"
+}

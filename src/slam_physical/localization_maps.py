@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import shutil
 import time
 from pathlib import Path
 
@@ -18,14 +19,19 @@ from slam_physical.storage import digest, read_pcd, write_json
 __all__ = ["build_maps", "main"]
 
 
-def rgbd_geometry(source: Path, maximum: int):
+def rgbd_geometry(source: Path, maximum: int, provided=False):
     from PIL import Image
 
     root = source / "rgbd"
     camera = json.loads((root / "cam_params.json").read_text())["camera"]
     paths = sorted((root / "room0/results").glob("depth*.png"))
     poses = np.loadtxt(root / "room0/traj.txt", ndmin=2).reshape(-1, 4, 4)
-    selected = np.linspace(0, len(paths) - 1, min(maximum, len(paths)), dtype=int)
+    if provided:
+        poses = np.load(source / "provided_rgbd_poses.npy", allow_pickle=False)
+    available = np.flatnonzero(np.isfinite(poses).all(axis=(1, 2)))
+    selected = available[
+        np.linspace(0, len(available) - 1, min(maximum, len(available)), dtype=int)
+    ]
     clouds, origins = [], []
     for index in selected:
         depth = np.array(Image.open(paths[index]), dtype=float) / camera["scale"]
@@ -51,29 +57,65 @@ def build_maps(
     frames=40,
     semantic_frames=8,
     methods=("raw", "beautymap", "dufomap", "conceptgraphs", "hovsg"),
+    pose_source="wheel",
 ):
     if not (source / "mapping_scans.npz").is_file():
         raise ValueError("Finish a keyboard mapping drive first")
     output.mkdir(parents=True, exist_ok=False)
     archive = np.load(source / "mapping_scans.npz", allow_pickle=False)
-    selected = np.linspace(
-        0, len(archive["poses"]) - 1, min(frames, len(archive["poses"])), dtype=int
+    all_poses = (
+        np.load(source / "provided_lidar_poses.npy", allow_pickle=False)
+        if pose_source == "provided"
+        else archive["poses"]
     )
+    available = np.flatnonzero(np.isfinite(all_poses).all(axis=(1, 2)))
+    selected = available[
+        np.linspace(0, len(available) - 1, min(frames, len(available)), dtype=int)
+    ]
     scans = [archive[f"scan_{i:04d}"] for i in selected]
-    poses = archive["poses"][selected]
+    poses = all_poses[selected]
     raw, frame_ids = world_points(scans, poses)
     origins = poses[frame_ids, :3, 3]
     manifest = {
         "mapping_recording": str(source.resolve()),
         "source_scans_sha256": digest(source / "mapping_scans.npz"),
-        "pose_source": "wheel odometry with declared start anchor and fixed extrinsics; no truth poses",
+        "pose_source": "simulator-provided poses for controlled mapping A; no truth input to held-out AMCL"
+        if pose_source == "provided"
+        else "wheel odometry with declared start anchor and fixed extrinsics; no truth poses",
         "lidar_observation_ids": selected.tolist(),
         "semantic_frames_requested": semantic_frames,
         "methods": {},
         "scope": "offline mapping followed by common AMCL; semantic geometry projection does not use CLIP or hierarchy during localization",
     }
+    source_session = source / "session.json"
+    if source_session.is_file():
+        session_meta = json.loads(source_session.read_text())
+        manifest["scenario"] = session_meta.get("scenario", "static")
+        manifest["source_session_sha256"] = digest(source_session)
     maps = output / "maps"
     maps.mkdir()
+    rgbd_input = source / "rgbd"
+    if pose_source == "provided":
+        rgbd_input = output / "rgbd-provided"
+        camera_poses = np.load(source / "provided_rgbd_poses.npy", allow_pickle=False)
+        valid = np.flatnonzero(np.isfinite(camera_poses).all(axis=(1, 2)))
+        manifest["provided_pose_record_sha256"] = digest(
+            source / "provided_pose_record.json"
+        )
+        manifest["semantic_available_original_ids"] = valid.tolist()
+        (rgbd_input / "room0/results").mkdir(parents=True)
+        shutil.copyfile(source / "rgbd/cam_params.json", rgbd_input / "cam_params.json")
+        for index, original in enumerate(valid):
+            for prefix, extension in [("frame", "jpg"), ("depth", "png")]:
+                shutil.copyfile(
+                    source / f"rgbd/room0/results/{prefix}{original:06d}.{extension}",
+                    rgbd_input / f"room0/results/{prefix}{index:06d}.{extension}",
+                )
+        np.savetxt(rgbd_input / "room0/traj.txt", camera_poses[valid].reshape(-1, 16))
+        write_json(
+            rgbd_input / "provided_pose_record.json",
+            json.loads((source / "provided_pose_record.json").read_text()),
+        )
     for method in methods:
         check_stop(output)
         print("BUILD MAP: " + method, flush=True)
@@ -117,7 +159,9 @@ def build_maps(
                 points = read_pcd(native / "dufomap_output.pcd")
             else:
                 family = "rgbd_geometry_projection"
-                evidence, evidence_origins, ids = rgbd_geometry(source, semantic_frames)
+                evidence, evidence_origins, ids = rgbd_geometry(
+                    source, semantic_frames, pose_source == "provided"
+                )
                 if "rgbd-raw" not in manifest["methods"]:
                     save_grid(
                         maps / "rgbd-raw",
@@ -149,7 +193,7 @@ def build_maps(
                     "--frames",
                     str(semantic_frames),
                     "--recording",
-                    str(source / "rgbd"),
+                    str(rgbd_input),
                 ]
                 code = run_logged(command, native, native / "native.log", output)
                 if code:
@@ -197,6 +241,7 @@ def main():
     parser.add_argument("--runtime", type=Path, required=True)
     parser.add_argument("--frames", type=int, default=40)
     parser.add_argument("--semantic-frames", type=int, default=8)
+    parser.add_argument("--pose-source", choices=["wheel", "provided"], default="wheel")
     parser.add_argument(
         "--methods",
         nargs="+",
@@ -211,6 +256,7 @@ def main():
         args.frames,
         args.semantic_frames,
         args.methods,
+        args.pose_source,
     )
 
 

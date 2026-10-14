@@ -1,4 +1,4 @@
-param([string]$Maps='', [string]$Recording='', [switch]$Gui, [switch]$NonInteractive)
+param([string]$Maps='', [string]$Recording='', [switch]$Gui, [switch]$NonInteractive, [ValidateRange(1,100)][int]$Repeats=1)
 $ErrorActionPreference='Stop'
 $repoRoot=Split-Path $PSScriptRoot -Parent
 function Select-Session([string]$RequiredFile,[string]$Prompt) {
@@ -20,7 +20,7 @@ $name='localization-compare-'+(Get-Date -Format 'yyyyMMdd-HHmmss')+'-'+[guid]::N
 $runPath=Join-Path $repoRoot ('runs\'+$name)
 @{path=$runPath;name=$name;pid=$PID} | ConvertTo-Json | Set-Content -LiteralPath (Join-Path $cachePath 'active.json') -Encoding UTF8
 try {
-  $arguments=@('--maps',$linuxMaps,'--recording',$linuxRecording,'--output',($linuxRoot+'/runs/'+$name))
+  $arguments=@('--maps',$linuxMaps,'--recording',$linuxRecording,'--output',($linuxRoot+'/runs/'+$name),'--repeats',"$Repeats")
   if ($Gui) {$arguments+='--gui'}
   & wsl.exe -d Ubuntu-24.04 -u root -- bash ($linuxRoot+'/scripts/compare_localization.sh') @arguments
   if ($LASTEXITCODE -ne 0) {throw ('Replay comparison failed: '+$runPath)}

@@ -1,0 +1,6 @@
+{
+  "kind": "keyboard wiring smoke check, not benchmark accuracy",
+  "nonzero_keyboard_commands": 16,
+  "max_physical_xy_displacement_m": 0.853590373072053,
+  "bag_closed_with_metadata": true
+}

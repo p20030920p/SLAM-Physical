@@ -1,0 +1,9 @@
+{
+  "file": "dynamic-localization-replay.mp4",
+  "kind": "recorded-data reconstruction, not an RViz screen capture",
+  "test_recording": "/mnt/d/workspace/be2/SLAM-Physical/runs/static-dynamic-20261014-033854-8e3b79/recordings/dynamic-test",
+  "repeat": 1,
+  "fps": 8,
+  "start_sim_s": 0.16,
+  "end_sim_s": 26.28
+}

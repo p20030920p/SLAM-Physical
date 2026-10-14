@@ -12,8 +12,21 @@
 | [11_build_localization_maps.cmd](11_build_localization_maps.cmd) | 从一次驾驶生成 raw、BeautyMap、DUFOMap、RGB-D raw、ConceptGraphs、HOV-SG 的定位地图 |
 | [12_amcl_choose_map.cmd](12_amcl_choose_map.cmd) | 选择算法地图，键盘驾驶并观看实时偏移 |
 | [13_compare_localization.cmd](13_compare_localization.cmd) | 选择另一次测试录制，相同输入逐图回放，输出误差、观测延迟与 CPU/RSS 对照 |
+| [14_static_keyboard.cmd](14_static_keyboard.cmd) | 纯静态场景，使用实际录制生成的原始地图，键盘驾驶并自动录制 |
+| [15_dynamic_keyboard.cmd](15_dynamic_keyboard.cmd) | 三个运动障碍物；菜单选择不使用论文算法或使用论文算法的地图，键盘驾驶并自动录制 |
+| [16_record_static_dynamic.cmd](16_record_static_dynamic.cmd) | 自动录制静态/动态建图 A 与独立测试 B、运行原生方法、重复 AMCL 回放并生成报告和数据回放视频 |
 
-先用 `10` 录制建图路线，用 `11` 生成地图；再用 `10` 或 `12` 录制独立测试路线，最后用 `13` 比较。`10` 默认地图来自明确标注的 SDF 参考几何。算法地图来自录制传感器与轮速位姿，不用真值填空白。CG/HOV 这里只检验几何投影的定位影响，AMCL 不消费语义特征。建图耗时与定位耗时分开记录。
+先用 `10` 录制建图路线，用 `11` 生成轮速位姿版本地图；再用 `10` 或 `12` 录制独立测试路线，最后用 `13` 比较。`10` 默认地图来自明确标注的 SDF 参考几何。`11` 默认使用轮速位姿；`16` 默认在建图 A 中使用仿真提供的传感器位姿，隔离轮速漂移与动态过滤影响，测试 B 的 AMCL 不使用真值。两者均不会用 SDF 几何填补算法地图。CG/HOV 这里只检验几何投影的定位影响，AMCL 不消费语义特征。建图耗时与定位耗时分开记录。
+
+`14` / `15` 优先使用本机最近完成的静态/动态录制地图。两种场景共用静态结构，动态场景额外加入沿固定轨迹运动的三个箱体。`16` 默认主对照重复三次，另用同一个动态测试 B 在干净静态地图上做一次控制实验；保存每组结果而非挑选最佳运行。详细流程见 [静态/动态定位指南](docs/WINDOWS_AMCL.zh-CN.md)。
+
+[本次静态/动态定位实测](docs/results/static-dynamic/README.md)：四份原始录制、十二张传感器建图结果与 42 次有效 AMCL 回放。便携证据保存地图、指标、对比图和录制数据重绘视频；完整 bag、扫描与原生运行产物保留在本机 `runs/`。
+
+## 静态与动态定位 GIF
+
+[SLAM_Learning 首页四类 GIF 与效果表](https://github.com/p20030920p/SLAM_Learning/blob/main/docs/HOME.zh-CN.md#静态与动态定位录制)：纯静态、动态 LiDAR、动态 RGB-D 几何，以及干净地图＋相同动态测试。每类保留完整 MP4 与 GIF，画面由录制数据重绘，包含轨迹和实时误差曲线。[媒体时序与来源哈希](https://github.com/p20030920p/SLAM_Learning/blob/main/results/localization/static-dynamic/timing.json)。
+
+同一动态测试 B，排除最初 5 秒后的平面定位 RMSE：原始 LiDAR **6.29 cm**，BeautyMap **5.52 cm**（降低 12.3%），DUFOMap **5.06 cm**（降低 19.5%）；RGB-D 家族原始 **6.45 cm**，ConceptGraphs **6.02 cm**，HOV-SG **6.28 cm**。纯静态场景中 BeautyMap、DUFOMap 略差于原始地图。建图 A 使用给定位姿，测试 B 不向 AMCL 提供真值；CG/HOV-SG 仅评测离线几何投影。
 
 ## 本机双击入口
 

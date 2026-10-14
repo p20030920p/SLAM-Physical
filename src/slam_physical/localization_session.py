@@ -16,6 +16,7 @@ from pathlib import Path
 import yaml
 
 from slam_physical.drive_world import build_drive_world
+from slam_physical.dynamic_scene import ACTORS, drive_command
 from slam_physical.occupancy import reference_grid, save_grid
 from slam_physical.storage import digest, write_json
 
@@ -32,6 +33,9 @@ def session(
     autodrive=False,
     linear_scale=1.0,
     angular_scale=1.0,
+    scenario="static",
+    actor_phase=0.0,
+    route="legacy",
 ):
     import rclpy
     from geometry_msgs.msg import Twist
@@ -49,16 +53,6 @@ def session(
     )
     os.environ.setdefault("LIBGL_ALWAYS_SOFTWARE", "1")
     os.environ.setdefault("MESA_GL_VERSION_OVERRIDE", "4.5")
-    boxes = build_drive_world(run / "world.sdf", ROOT / ".cache/sim2real")
-    if map_file is None:
-        map_file = save_grid(
-            run / "reference_map",
-            reference_grid(boxes),
-            {"type": "SDF reference baseline, not an algorithm map"},
-        )
-    map_file = map_file.resolve()
-    if not map_file.is_file():
-        raise FileNotFoundError(map_file)
     if replay:
         replay = replay.resolve()
         if not (replay / "bag/metadata.yaml").is_file():
@@ -70,6 +64,20 @@ def session(
             source["odom_linear_scale"],
             source["odom_angular_scale"],
         )
+        scenario = source.get("scenario", "static")
+        actor_phase = source.get("actor_phase_s", 0.0)
+    boxes = build_drive_world(
+        run / "world.sdf", ROOT / ".cache/sim2real", scenario, actor_phase
+    )
+    if map_file is None:
+        map_file = save_grid(
+            run / "reference_map",
+            reference_grid(boxes),
+            {"type": "SDF reference baseline, not an algorithm map"},
+        )
+    map_file = map_file.resolve()
+    if not map_file.is_file():
+        raise FileNotFoundError(map_file)
     config = ROOT / "config/localization.yaml"
     write_json(
         run / "session.json",
@@ -79,6 +87,9 @@ def session(
             "ros_domain_id": domain,
             "map_yaml": str(map_file),
             "map_yaml_sha256": digest(map_file),
+            "map_image_sha256": digest(
+                map_file.parent / yaml.safe_load(map_file.read_text())["image"]
+            ),
             "amcl_config_sha256": digest(config),
             "source_recording": str(replay) if replay else None,
             "odom_linear_scale": linear_scale,
@@ -86,6 +97,15 @@ def session(
             "robot": "physics differential drive in Sim2Real measurement annex; no robot set_pose",
             "truth_role": "display/scoring only; reference baseline map is explicitly SDF-derived",
             "initial_pose": "fixed AMCL guess (6.25,6.15,0.12rad); robot spawn (6,6,0rad)",
+            "scenario": scenario,
+            "actor_phase_s": actor_phase,
+            "route": route
+            if autodrive
+            else "keyboard"
+            if not replay
+            else source.get("route", "unknown"),
+            "duration_sim_s_after_ready": duration,
+            "dynamic_role": "scripted obstacle motion only; actor observations display/scoring, never AMCL input",
         },
     )
     children = []
@@ -102,7 +122,9 @@ def session(
         ]
     )
     rclpy.init()
-    node = DriveTelemetry(run, linear_scale, angular_scale, collect=not bool(replay))
+    node = DriveTelemetry(
+        run, linear_scale, angular_scale, collect=not bool(replay), scenario=scenario
+    )
     automation = node.create_publisher(Twist, "/teleop/cmd_vel", 10)
 
     def start(name, command):
@@ -182,6 +204,17 @@ def session(
                         "direction": "GZ_TO_ROS",
                     }
                 )
+            if scenario == "dynamic":
+                for actor in ACTORS:
+                    bridges.append(
+                        {
+                            "ros_topic_name": "/dynamic/" + actor["name"],
+                            "gz_topic_name": "/model/" + actor["name"] + "/pose",
+                            "ros_type_name": "tf2_msgs/msg/TFMessage",
+                            "gz_type_name": "gz.msgs.Pose_V",
+                            "direction": "GZ_TO_ROS",
+                        }
+                    )
             (run / "bridge.yaml").write_text(yaml.safe_dump(bridges))
             start(
                 "bridge",
@@ -213,6 +246,11 @@ def session(
                 "/camera/camera_info",
                 "/localization/markers",
             ]
+            topics += (
+                ["/dynamic/" + actor["name"] for actor in ACTORS]
+                if scenario == "dynamic"
+                else []
+            )
             start(
                 "recorder",
                 [
@@ -227,6 +265,20 @@ def session(
                     *topics,
                 ],
             )
+            if scenario == "dynamic":
+                start(
+                    "dynamic_scene",
+                    [
+                        "python3",
+                        "-u",
+                        "-m",
+                        "slam_physical.dynamic_scene",
+                        "--output",
+                        run,
+                        "--phase",
+                        actor_phase,
+                    ],
+                )
         start(
             "map_server",
             [
@@ -274,12 +326,13 @@ def session(
                 ],
             )
         player = None
+        playback_completed = False
         start_wall = time.monotonic()
         last_status = start_wall
         last_resource = start_wall
         previous_cpu = 0.0
         previous_sim = 0.0
-        while not (run / "STOP").exists() and not (run.parent / "STOP").exists():
+        while not any((parent / "STOP").exists() for parent in [run, *run.parents[:3]]):
             rclpy.spin_once(node, timeout_sec=0.02)
             now = time.monotonic()
             if now - last_resource >= 1:
@@ -313,14 +366,20 @@ def session(
                         "/scan",
                         "/wheel_odom",
                         "/truth",
+                        *(
+                            ["/dynamic/" + actor["name"] for actor in ACTORS]
+                            if scenario == "dynamic"
+                            else []
+                        ),
                     ],
                 )
             if node.first_ready:
-                elapsed = now - node.first_ready
+                elapsed = (
+                    node.get_clock().now().nanoseconds * 1e-9 - node.first_ready_sim
+                )
                 if autodrive:
                     message = Twist()
-                    message.linear.x = 0.2 if elapsed < 8 else 0.0
-                    message.angular.z = 0.3 if 8 <= elapsed < 12 else 0.0
+                    message.linear.x, message.angular.z = drive_command(elapsed, route)
                     automation.publish(message)
                 if duration and elapsed >= duration:
                     break
@@ -333,6 +392,7 @@ def session(
                     raise RuntimeError("Bag replay failed")
                 for _ in range(30):
                     rclpy.spin_once(node, timeout_sec=0.02)
+                playback_completed = True
                 break
             for name, process in children:
                 if name not in ("player",) and process.poll() is not None:
@@ -343,6 +403,10 @@ def session(
                     flush=True,
                 )
                 last_status = now
+        if replay and not playback_completed:
+            raise InterruptedError(
+                "Replay ended before the entire held-out recording was consumed"
+            )
         status = "completed"
     except BaseException as error:
         status = "failed"
@@ -396,6 +460,11 @@ def main():
     parser.add_argument("--autodrive", action="store_true")
     parser.add_argument("--odom-linear-scale", type=float, default=1.0)
     parser.add_argument("--odom-angular-scale", type=float, default=1.0)
+    parser.add_argument("--scenario", choices=["static", "dynamic"], default="static")
+    parser.add_argument("--actor-phase", type=float, default=0.0)
+    parser.add_argument(
+        "--route", choices=["legacy", "mapping", "test"], default="legacy"
+    )
     args = parser.parse_args()
     session(
         args.output.resolve(),
@@ -406,6 +475,9 @@ def main():
         args.autodrive,
         args.odom_linear_scale,
         args.odom_angular_scale,
+        args.scenario,
+        args.actor_phase,
+        args.route,
     )
 
 

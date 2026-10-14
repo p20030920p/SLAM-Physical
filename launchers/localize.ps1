@@ -1,6 +1,8 @@
 param([string]$MapYaml='', [switch]$ChooseMap, [switch]$NoGui, [switch]$NoKeyboard,
       [switch]$NonInteractive, [double]$Duration=0, [switch]$Autodrive,
-      [double]$OdomLinearScale=1.0, [double]$OdomAngularScale=1.0)
+      [double]$OdomLinearScale=1.0, [double]$OdomAngularScale=1.0,
+      [ValidateSet('static','dynamic')][string]$Scenario='static',
+      [double]$ActorPhase=0, [ValidateSet('legacy','mapping','test')][string]$Route='legacy')
 $ErrorActionPreference='Stop'
 $repoRoot=Split-Path $PSScriptRoot -Parent
 $cachePath=Join-Path $repoRoot '.cache'
@@ -24,7 +26,8 @@ $stderr=Join-Path $cachePath ($name+'.stderr.log')
 $backend=$null
 try {
   $arguments=@('-d','Ubuntu-24.04','-u','root','--','bash',('"'+$linuxRoot+'/scripts/localization.sh"'),'--output',('"'+$linuxRun+'"'),
-               '--duration',"$Duration",'--odom-linear-scale',"$OdomLinearScale",'--odom-angular-scale',"$OdomAngularScale")
+               '--duration',"$Duration",'--odom-linear-scale',"$OdomLinearScale",'--odom-angular-scale',"$OdomAngularScale",
+               '--scenario',$Scenario,'--actor-phase',"$ActorPhase",'--route',$Route)
   if ($NoGui) {$arguments+='--no-gui'}
   if ($Autodrive) {$arguments+='--autodrive'}
   if ($MapYaml) {
@@ -32,6 +35,8 @@ try {
     $arguments+=@('--map',('"'+$linuxMap+'"'))
   }
   Write-Host 'Starting physics robot, AMCL, live RViz errors and automatic ROS bag recording.' -ForegroundColor Cyan
+  Write-Host ('Scene: '+$Scenario)
+  if ($Scenario -eq 'dynamic') {Write-Host 'Orange boxes show independently observed moving obstacles.'}
   Write-Host 'Focus the keyboard terminal. Hold i to move, j/l to turn, k to stop. Ctrl+C there ends this recording.'
   if (-not $MapYaml) {Write-Host 'Map: SDF reference baseline. Use 12_amcl_choose_map.cmd for an algorithm map.'}
   $backend=Start-Process -FilePath 'wsl.exe' -ArgumentList $arguments -WindowStyle Hidden -RedirectStandardOutput $stdout -RedirectStandardError $stderr -PassThru

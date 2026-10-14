@@ -25,12 +25,22 @@ def localization_report(run: Path):
     yaw = numbers("yaw_error_rad")
     latency = numbers("scan_to_pose_observed_wall_ms")
     gaps = numbers("pose_gap_wall_s")
+    stamps = numbers("stamp_sim_s")
+    settled = errors[stamps >= stamps.min() + 5] if len(stamps) else errors
     summary = {
         "status": "scored" if len(errors) else "no_synchronized_localization_samples",
         "matched_pose_updates": len(rows),
         "live_prediction_samples": len(live),
         "position_rmse_m": float(np.sqrt((errors**2).mean())) if len(errors) else None,
         "position_p95_m": float(np.percentile(errors, 95)) if len(errors) else None,
+        "position_max_m": float(errors.max()) if len(errors) else None,
+        "post_warmup_5s_position_rmse_m": float(np.sqrt((settled**2).mean()))
+        if len(settled)
+        else None,
+        "post_warmup_5s_samples": len(settled),
+        "position_over_0_5m_fraction": float(np.mean(errors > 0.5))
+        if len(errors)
+        else None,
         "yaw_rmse_deg": float(np.sqrt((yaw**2).mean()) * 180 / np.pi)
         if len(yaw)
         else None,

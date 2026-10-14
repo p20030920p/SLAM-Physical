@@ -1,0 +1,22 @@
+{
+  "grid": {
+    "resolution": 0.05,
+    "origin": [
+      -1.0,
+      -1.0,
+      0.0
+    ],
+    "width": 280,
+    "height": 280,
+    "height_band": [
+      0.5,
+      0.8
+    ],
+    "dilation_cells": 1
+  },
+  "method": "hovsg",
+  "mapping_recording": "/mnt/d/workspace/be2/SLAM-Physical/runs/static-dynamic-20261014-033854-8e3b79/recordings/dynamic-mapping",
+  "family": "rgbd_geometry_projection",
+  "output_points": 445990,
+  "free_space": "common raw sensor rays within family; no SDF truth fill"
+}
